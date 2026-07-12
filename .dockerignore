@@ -1,0 +1,3 @@
+# The Dockerfile only needs the built theme JAR. Keep the build context tiny.
+*
+!dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar
