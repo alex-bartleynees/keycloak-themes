@@ -1,4 +1,5 @@
 import { Suspense, lazy } from "react";
+import "./dopamine-kick.css";
 import type { ClassKey } from "keycloakify/login";
 import type { KcContext } from "./KcContext";
 import { useI18n } from "./i18n";

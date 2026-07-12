@@ -30,6 +30,9 @@ build/Release
 node_modules
 jspm_packages
 
+# This is a yarn project — don't commit an npm lockfile
+package-lock.json
+
 # Optional npm cache directory
 .npm
 
