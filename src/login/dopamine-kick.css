@@ -40,6 +40,15 @@ body {
     color: var(--dk-foreground);
 }
 
+/* --- Layout: center the login card in the viewport --- */
+.login-pf-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* --- Card --- */
 .card-pf,
 #kc-content .login-pf-page .card-pf {
@@ -74,9 +83,10 @@ body {
 
 label,
 .pf-v5-c-form__label,
+.pf-v5-c-form__label-text,
 .pf-c-form__label {
     font-weight: 500;
-    color: var(--dk-foreground);
+    color: var(--dk-foreground) !important;
 }
 
 /* --- Inputs --- */
@@ -98,6 +108,43 @@ input:focus,
     outline: none !important;
     border-color: var(--dk-ring) !important;
     box-shadow: 0 0 0 3px hsl(271 81% 56% / 0.25) !important;
+}
+
+/* --- Password reveal (input group) --- */
+/*
+ * Keycloak wraps the password field in a PatternFly input-group with a
+ * separate "reveal" button that defaults to a white box (the white corners /
+ * eye box in the screenshot). Make the group transparent and join the input
+ * and button into a single rounded control that blends with the input.
+ */
+.pf-v5-c-input-group,
+.pf-c-input-group {
+    background: transparent !important;
+    border-radius: var(--dk-radius) !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-form-control,
+.pf-c-input-group .pf-c-form-control {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+.pf-v5-c-button.pf-m-control,
+.pf-c-button.pf-m-control,
+button[aria-label="Show password"],
+button[aria-label="Hide password"] {
+    background: var(--dk-input-bg) !important;
+    border: 1px solid var(--dk-border) !important;
+    border-left: none !important;
+    border-radius: 0 var(--dk-radius) var(--dk-radius) 0 !important;
+    color: var(--dk-muted-foreground) !important;
+    box-shadow: none !important;
+}
+
+.pf-v5-c-button.pf-m-control:hover,
+.pf-c-button.pf-m-control:hover {
+    color: var(--dk-foreground) !important;
 }
 
 /* --- Primary button: brand gradient --- */
@@ -155,8 +202,9 @@ a:hover {
 
     #kc-page-title,
     label,
-    .pf-v5-c-form__label {
-        color: #f9fafb;
+    .pf-v5-c-form__label,
+    .pf-v5-c-form__label-text {
+        color: #f9fafb !important;
     }
 
     input[type="text"],
@@ -165,6 +213,21 @@ a:hover {
     .pf-v5-c-form-control {
         background: #374151 !important;
         border-color: #374151 !important;
+        color: #f9fafb !important;
+    }
+
+    /* Password reveal button blends with the dark input */
+    .pf-v5-c-button.pf-m-control,
+    .pf-c-button.pf-m-control,
+    button[aria-label="Show password"],
+    button[aria-label="Hide password"] {
+        background: #374151 !important;
+        border-color: #374151 !important;
+        color: #9ca3af !important;
+    }
+
+    .pf-v5-c-button.pf-m-control:hover,
+    .pf-c-button.pf-m-control:hover {
         color: #f9fafb !important;
     }
 
