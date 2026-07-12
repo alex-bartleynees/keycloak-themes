@@ -1,0 +1,160 @@
+/*
+ * dopamine-kick login theme
+ * Brand tokens mirrored from dopamine-kick-app/src/styles/theme.css.
+ * This layers on top of Keycloak's default (keycloak.v2 / PatternFly) CSS,
+ * so it only needs to override the visible surfaces: page background, card,
+ * inputs, primary button, links and typography.
+ *
+ * Iterate on this visually with `yarn storybook` (or `yarn dev` + a KcContext
+ * mock) — the selectors below cover the login/register/reset pages.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+:root {
+    /* Brand */
+    --dk-primary: hsl(271 81% 48%);
+    --dk-primary-hover: hsl(271 81% 42%);
+    --dk-gradient-start: hsl(217 91% 60%);
+    --dk-gradient-end: hsl(271 81% 56%);
+    --dk-gradient: linear-gradient(135deg, var(--dk-gradient-start) 0%, var(--dk-gradient-end) 100%);
+
+    /* Surfaces */
+    --dk-foreground: #111827;
+    --dk-muted-foreground: #4b5563;
+    --dk-card: #ffffff;
+    --dk-border: #e5e7eb;
+    --dk-input-bg: #f3f3f5;
+    --dk-radius: 0.625rem;
+    --dk-ring: hsl(271 81% 56%);
+
+    --dk-font: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- Page background: blue-50 -> purple-50 -> pink-50, matching .page-gradient --- */
+body.login-pf,
+.login-pf-page,
+body {
+    background: linear-gradient(to bottom right, #eff6ff, #faf5ff, #fdf2f8) fixed !important;
+    font-family: var(--dk-font) !important;
+    color: var(--dk-foreground);
+}
+
+/* --- Card --- */
+.card-pf,
+#kc-content .login-pf-page .card-pf {
+    background: var(--dk-card);
+    border: 1px solid var(--dk-border);
+    border-radius: var(--dk-radius);
+    box-shadow: 0 10px 25px -5px rgba(17, 24, 39, 0.1), 0 8px 10px -6px rgba(17, 24, 39, 0.08);
+    padding: 2rem;
+}
+
+/* --- Headings / labels --- */
+#kc-page-title,
+#kc-header-wrapper {
+    font-weight: 700;
+    color: var(--dk-foreground);
+}
+
+label,
+.pf-v5-c-form__label,
+.pf-c-form__label {
+    font-weight: 500;
+    color: var(--dk-foreground);
+}
+
+/* --- Inputs --- */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+.pf-v5-c-form-control,
+.pf-c-form-control {
+    background: var(--dk-input-bg) !important;
+    border: 1px solid var(--dk-border) !important;
+    border-radius: var(--dk-radius) !important;
+    color: var(--dk-foreground) !important;
+    padding: 0.625rem 0.75rem !important;
+    height: auto !important;
+}
+
+input:focus,
+.pf-v5-c-form-control:focus {
+    outline: none !important;
+    border-color: var(--dk-ring) !important;
+    box-shadow: 0 0 0 3px hsl(271 81% 56% / 0.25) !important;
+}
+
+/* --- Primary button: brand gradient --- */
+input[type="submit"].pf-m-primary,
+.pf-v5-c-button.pf-m-primary,
+.pf-c-button.pf-m-primary,
+#kc-login,
+.btn-primary {
+    background: var(--dk-gradient) !important;
+    border: none !important;
+    border-radius: var(--dk-radius) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    padding: 0.625rem 1rem !important;
+    transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+input[type="submit"].pf-m-primary:hover,
+.pf-v5-c-button.pf-m-primary:hover,
+#kc-login:hover,
+.btn-primary:hover {
+    filter: brightness(1.05);
+}
+
+input[type="submit"].pf-m-primary:active,
+#kc-login:active {
+    transform: translateY(1px);
+}
+
+/* --- Secondary / link buttons --- */
+a,
+.pf-v5-c-button.pf-m-link,
+#kc-registration a,
+#kc-info a {
+    color: var(--dk-primary);
+}
+
+a:hover {
+    color: var(--dk-primary-hover);
+}
+
+/* --- Dark mode (mirrors .dark tokens in the app) --- */
+@media (prefers-color-scheme: dark) {
+    body.login-pf,
+    .login-pf-page,
+    body {
+        background: linear-gradient(to bottom right, #111827, #3b0764, #111827) fixed !important;
+        color: #f9fafb;
+    }
+
+    .card-pf {
+        background: #1f2937;
+        border-color: #374151;
+    }
+
+    #kc-page-title,
+    label,
+    .pf-v5-c-form__label {
+        color: #f9fafb;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    .pf-v5-c-form-control {
+        background: #374151 !important;
+        border-color: #374151 !important;
+        color: #f9fafb !important;
+    }
+
+    a,
+    #kc-registration a {
+        color: hsl(271 91% 71%);
+    }
+}
