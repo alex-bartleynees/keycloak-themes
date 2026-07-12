@@ -50,9 +50,24 @@ body {
     padding: 2rem;
 }
 
+/* --- Realm name header --- */
+/*
+ * Keycloak renders the realm's display name (here "development" / "production")
+ * in #kc-header, above the card. Those are infra realm names, not product
+ * branding, so hide the block entirely on this product's login pages.
+ */
+#kc-header {
+    display: none;
+}
+
+/* --- Language selector --- */
+/* Hide the locale dropdown (shown when >1 language is enabled on the realm). */
+#kc-locale {
+    display: none;
+}
+
 /* --- Headings / labels --- */
-#kc-page-title,
-#kc-header-wrapper {
+#kc-page-title {
     font-weight: 700;
     color: var(--dk-foreground);
 }
