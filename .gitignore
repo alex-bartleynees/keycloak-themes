@@ -33,6 +33,9 @@ jspm_packages
 # This is a yarn project — don't commit an npm lockfile
 package-lock.json
 
+# direnv / nix dev shell cache
+.direnv
+
 # Optional npm cache directory
 .npm
 
