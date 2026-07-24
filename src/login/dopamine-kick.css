@@ -17,7 +17,11 @@
     --dk-primary-hover: hsl(271 81% 42%);
     --dk-gradient-start: hsl(217 91% 60%);
     --dk-gradient-end: hsl(271 81% 56%);
-    --dk-gradient: linear-gradient(135deg, var(--dk-gradient-start) 0%, var(--dk-gradient-end) 100%);
+    --dk-gradient: linear-gradient(
+        135deg,
+        var(--dk-gradient-start) 0%,
+        var(--dk-gradient-end) 100%
+    );
 
     /* Surfaces */
     --dk-foreground: #111827;
@@ -55,7 +59,9 @@ body {
     background: var(--dk-card);
     border: 1px solid var(--dk-border);
     border-radius: var(--dk-radius);
-    box-shadow: 0 10px 25px -5px rgba(17, 24, 39, 0.1), 0 8px 10px -6px rgba(17, 24, 39, 0.08);
+    box-shadow:
+        0 10px 25px -5px rgba(17, 24, 39, 0.1),
+        0 8px 10px -6px rgba(17, 24, 39, 0.08);
     padding: 2rem;
 }
 
@@ -159,7 +165,9 @@ input[type="submit"].pf-m-primary,
     color: #ffffff !important;
     font-weight: 600 !important;
     padding: 0.625rem 1rem !important;
-    transition: filter 0.15s ease, transform 0.05s ease;
+    transition:
+        filter 0.15s ease,
+        transform 0.05s ease;
 }
 
 input[type="submit"].pf-m-primary:hover,
@@ -200,11 +208,18 @@ a:hover {
         border-color: #374151;
     }
 
-    #kc-page-title,
+    .kcLabelClass span {
+        color: #f9fafb !important;
+    }
+
     label,
     .pf-v5-c-form__label,
     .pf-v5-c-form__label-text {
         color: #f9fafb !important;
+    }
+
+    #kc-page-title {
+        color: #f9fafb;
     }
 
     input[type="text"],
@@ -235,4 +250,8 @@ a:hover {
     #kc-registration a {
         color: hsl(271 91% 71%);
     }
+}
+
+.pf-c-button:after {
+    border-color: transparent;
 }
