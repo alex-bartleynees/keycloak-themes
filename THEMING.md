@@ -82,7 +82,9 @@ Say you're adding `product-feedback`.
        import(`./${kcContext.themeName}.css`);
    }, [kcContext.themeName]);
    ```
-   Or, if you prefer static imports, **scope each stylesheet** under a theme wrapper (e.g. prefix every rule with `body[class*="dopamine-kick"]`) so they can't collide. The simplest option while there's only one theme is to keep the single `import "./dopamine-kick.css"`; switch to the conditional pattern above the moment you add the second theme.
+   Or, if you prefer static imports, **scope each stylesheet** under a theme wrapper (e.g. prefix every rule with `body[class*="dopamine-kick"]`) so they can't collide.
+
+   > **This switch is already made** (as of the `coffee-journal` theme, 2026-08-04): `KcPage.tsx` uses `import.meta.glob("./*.css")` + a `useEffect` that loads `./${kcContext.themeName}.css`. Both `dopamine-kick.css` and `coffee-journal.css` now load conditionally; there is no static brand `import` at the top of `KcPage.tsx` any more. New themes just drop in a `<name>.css` and get picked up automatically.
 
 4. **Add stories** so you can preview it — create `src/login/pages/*.stories.tsx` for the pages you care about (login, register, reset). Copy an existing story and change the `pageId`/`title`. Valid `pageId`s are the Keycloak template names, e.g. `login.ftl`, `register.ftl`, `login-reset-password.ftl`, `login-update-password.ftl`, `info.ftl`, `error.ftl`.
 

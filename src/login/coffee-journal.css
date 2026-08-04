@@ -1,0 +1,271 @@
+/*
+ * coffee-journal (Bloom) login theme
+ * Brand tokens mirrored from coffee-app/src/lib/styles/app.css.
+ * Layers on top of Keycloak's default (keycloak.v2 / PatternFly) CSS — overrides
+ * only the visible surfaces: warm paper background, card, inputs, the dark-ink
+ * primary button, forest-green links, and the Fraunces/Inter type system.
+ *
+ * Iterate visually with `yarn storybook` (the coffee-journal stories pass
+ * themeName so this stylesheet is the one that loads).
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+    /* Paper + ink (light) */
+    --bl-paper: #f2eee5;
+    --bl-paper-card: #faf6ec;
+    --bl-ink: #1a1714;
+    --bl-ink-2: #3a342c;
+    --bl-ink-3: #6e6657;
+    --bl-line: #c9bfa8;
+    --bl-line-soft: #dad1bc;
+    --bl-input-bg: rgba(255, 255, 255, 0.55);
+
+    /* Accent — deep forest, copper for detail */
+    --bl-accent: #2f5d4f;
+    --bl-accent-hover: #26493e;
+    --bl-copper: #b0743a;
+
+    --bl-radius: 14px;
+    --bl-radius-lg: 20px;
+
+    --bl-serif: "Fraunces", "Georgia", serif;
+    --bl-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- Page background: flat warm paper --- */
+body.login-pf,
+.login-pf-page,
+body {
+    background: var(--bl-paper) !important;
+    font-family: var(--bl-sans) !important;
+    color: var(--bl-ink);
+}
+
+/* --- Layout: center the card --- */
+.login-pf-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Card --- */
+.card-pf,
+#kc-content .login-pf-page .card-pf {
+    background: var(--bl-paper-card);
+    border: 1px solid var(--bl-line);
+    border-radius: var(--bl-radius-lg);
+    box-shadow:
+        0 18px 40px -12px rgba(26, 23, 20, 0.16),
+        0 6px 14px -8px rgba(26, 23, 20, 0.1);
+    padding: 2.25rem;
+}
+
+/* --- Realm name header: infra name (development/production), not branding --- */
+#kc-header {
+    display: none;
+}
+
+/* --- Language selector --- */
+#kc-locale {
+    display: none;
+}
+
+/* --- Headings: Fraunces italic, the Bloom signature --- */
+#kc-page-title {
+    font-family: var(--bl-serif) !important;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.9rem;
+    letter-spacing: -0.5px;
+    color: var(--bl-ink);
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+/* --- Labels --- */
+label,
+.pf-v5-c-form__label,
+.pf-v5-c-form__label-text,
+.pf-c-form__label {
+    font-family: var(--bl-sans) !important;
+    font-weight: 500;
+    color: var(--bl-ink-2) !important;
+}
+
+/* --- Inputs --- */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+.pf-v5-c-form-control,
+.pf-c-form-control {
+    background: var(--bl-input-bg) !important;
+    border: 1px solid var(--bl-line) !important;
+    border-radius: var(--bl-radius) !important;
+    color: var(--bl-ink) !important;
+    padding: 0.7rem 0.85rem !important;
+    height: auto !important;
+}
+
+input:focus,
+.pf-v5-c-form-control:focus {
+    outline: none !important;
+    border-color: var(--bl-accent) !important;
+    box-shadow: 0 0 0 3px rgba(47, 93, 79, 0.22) !important;
+}
+
+/* --- Password reveal (PatternFly input-group) — blend the button into the input --- */
+.pf-v5-c-input-group,
+.pf-c-input-group {
+    background: transparent !important;
+    border-radius: var(--bl-radius) !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-form-control,
+.pf-c-input-group .pf-c-form-control {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+.pf-v5-c-button.pf-m-control,
+.pf-c-button.pf-m-control,
+button[aria-label="Show password"],
+button[aria-label="Hide password"] {
+    background: var(--bl-input-bg) !important;
+    border: 1px solid var(--bl-line) !important;
+    border-left: none !important;
+    border-radius: 0 var(--bl-radius) var(--bl-radius) 0 !important;
+    color: var(--bl-ink-3) !important;
+    box-shadow: none !important;
+}
+
+.pf-v5-c-button.pf-m-control:hover,
+.pf-c-button.pf-m-control:hover {
+    color: var(--bl-ink) !important;
+}
+
+/* --- Primary button: dark ink, matching the app's "Sign in" CTA --- */
+input[type="submit"].pf-m-primary,
+.pf-v5-c-button.pf-m-primary,
+.pf-c-button.pf-m-primary,
+#kc-login,
+.btn-primary {
+    background: var(--bl-ink) !important;
+    border: none !important;
+    border-radius: var(--bl-radius) !important;
+    color: var(--bl-paper) !important;
+    font-family: var(--bl-sans) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.2px;
+    padding: 0.7rem 1rem !important;
+    transition:
+        background 0.15s ease,
+        transform 0.05s ease;
+}
+
+input[type="submit"].pf-m-primary:hover,
+.pf-v5-c-button.pf-m-primary:hover,
+#kc-login:hover,
+.btn-primary:hover {
+    background: var(--bl-ink-2) !important;
+}
+
+input[type="submit"].pf-m-primary:active,
+#kc-login:active {
+    transform: scale(0.985);
+}
+
+/* --- Links / secondary — deep forest --- */
+a,
+.pf-v5-c-button.pf-m-link,
+#kc-registration a,
+#kc-info a {
+    color: var(--bl-accent);
+}
+
+a:hover {
+    color: var(--bl-accent-hover);
+}
+
+/* --- Checkbox (remember me) accent --- */
+input[type="checkbox"] {
+    accent-color: var(--bl-accent);
+}
+
+/* --- Dark mode (mirrors the app's [data-theme='dark'] tokens) --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bl-paper: #221e18;
+        --bl-paper-card: #2a251e;
+        --bl-ink: #f2ebda;
+        --bl-ink-2: #d6ccb6;
+        --bl-ink-3: #9a917d;
+        --bl-line: #3d3629;
+        --bl-line-soft: #322c22;
+        --bl-input-bg: rgba(255, 240, 210, 0.05);
+        --bl-accent: #7bb89e;
+        --bl-accent-hover: #93c7b0;
+        --bl-copper: #e0a658;
+    }
+
+    /* Primary button flips to forest on dark paper (dark ink would vanish) */
+    input[type="submit"].pf-m-primary,
+    .pf-v5-c-button.pf-m-primary,
+    #kc-login,
+    .btn-primary {
+        background: var(--bl-accent) !important;
+        color: #17201b !important;
+    }
+
+    input[type="submit"].pf-m-primary:hover,
+    #kc-login:hover,
+    .btn-primary:hover {
+        background: var(--bl-accent-hover) !important;
+    }
+
+    .card-pf {
+        background: var(--bl-paper-card);
+        border-color: var(--bl-line);
+    }
+
+    #kc-page-title,
+    .kcLabelClass span {
+        color: var(--bl-ink) !important;
+    }
+
+    label,
+    .pf-v5-c-form__label,
+    .pf-v5-c-form__label-text {
+        color: var(--bl-ink-2) !important;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    .pf-v5-c-form-control {
+        background: var(--bl-input-bg) !important;
+        border-color: var(--bl-line) !important;
+        color: var(--bl-ink) !important;
+    }
+
+    .pf-v5-c-button.pf-m-control,
+    .pf-c-button.pf-m-control,
+    button[aria-label="Show password"],
+    button[aria-label="Hide password"] {
+        background: var(--bl-input-bg) !important;
+        border-color: var(--bl-line) !important;
+        color: var(--bl-ink-3) !important;
+    }
+
+    a,
+    #kc-registration a {
+        color: var(--bl-accent);
+    }
+}
+
+.pf-c-button:after {
+    border-color: transparent;
+}

@@ -1,5 +1,4 @@
-import { Suspense, lazy } from "react";
-import "./dopamine-kick.css";
+import { Suspense, lazy, useEffect } from "react";
 import type { ClassKey } from "keycloakify/login";
 import type { KcContext } from "./KcContext";
 import { useI18n } from "./i18n";
@@ -9,12 +8,22 @@ const UserProfileFormFields = lazy(
     () => import("keycloakify/login/UserProfileFormFields")
 );
 
+// All themes share ONE JS bundle, so a static `import "./x.css"` would apply to
+// every theme and the last one imported would win. Instead, load the brand
+// stylesheet that matches the active theme at runtime, keyed by themeName.
+// (See THEMING.md — required once there is more than one theme.)
+const themeStylesheets = import.meta.glob("./*.css");
+
 const doMakeUserConfirmPassword = true;
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
 
     const { i18n } = useI18n({ kcContext });
+
+    useEffect(() => {
+        void themeStylesheets[`./${kcContext.themeName}.css`]?.();
+    }, [kcContext.themeName]);
 
     return (
         <Suspense>
