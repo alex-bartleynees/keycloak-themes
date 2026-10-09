@@ -1,0 +1,289 @@
+/*
+ * mailmerge login theme
+ * Brand tokens mirrored from mailmerge/src/MailMerge.Api/wwwroot/index.html (:root).
+ * Layers on top of Keycloak's default (keycloak.v2 / PatternFly) CSS and overrides only the
+ * visible surfaces: off-white page, white card, forest-green primary button and links, system font.
+ * Staff accounts are created by an admin, so the pages that matter are sign in, forgot password,
+ * and "update password" (first login with a temporary password).
+ *
+ * Iterate visually with `yarn storybook` (the mailmerge stories pass themeName so this
+ * stylesheet is the one that loads).
+ */
+
+:root {
+    --mm-bg: #f6f5f2;
+    --mm-card: #ffffff;
+    --mm-ink: #1f2328;
+    --mm-mute: #6b7280;
+    --mm-line: #e3e1db;
+    --mm-input-bg: #f6f5f2;
+    --mm-brand: #1f6f5c;
+    --mm-brand-hover: #18594a;
+    --mm-brand-ink: #ffffff;
+    --mm-focus: rgba(31, 111, 92, 0.22);
+    --mm-bad: #b42318;
+    --mm-badbg: #fdecea;
+    --mm-warn: #8a5a00;
+    --mm-warnbg: #fff4d6;
+
+    --mm-radius: 10px;
+    --mm-radius-lg: 14px;
+
+    --mm-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- Page background --- */
+body.login-pf,
+.login-pf-page,
+body {
+    background: var(--mm-bg) !important;
+    font-family: var(--mm-sans) !important;
+    color: var(--mm-ink);
+}
+
+/* --- Layout: center the card --- */
+.login-pf-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Header: replace the realm name (development/production) with the product name --- */
+#kc-header {
+    display: block !important;
+    margin-bottom: 1.25rem;
+}
+
+#kc-header-wrapper {
+    font-size: 0 !important;
+    text-transform: none !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+#kc-header-wrapper::before {
+    content: "✉ MailMerge";
+    font-family: var(--mm-sans);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--mm-ink);
+}
+
+/* --- Language selector --- */
+#kc-locale {
+    display: none;
+}
+
+/* --- Self-registration: staff accounts are created by an admin, and a self-registered user would
+   only reach "No access yet". Hidden here even if the shared realm allows registration for other apps. --- */
+#kc-registration-container,
+#kc-registration {
+    display: none !important;
+}
+
+/* ...and the footer band that only holds it (forgot-password keeps its footer: it holds instructions) */
+#kc-info:has(#kc-registration-container) {
+    display: none !important;
+}
+
+/* --- Card --- */
+.card-pf,
+#kc-content .login-pf-page .card-pf {
+    background: var(--mm-card);
+    border: 1px solid var(--mm-line);
+    border-radius: var(--mm-radius-lg);
+    box-shadow: 0 10px 30px -14px rgba(31, 35, 40, 0.18);
+    padding: 2rem;
+}
+
+/* --- Page title --- */
+#kc-page-title {
+    font-family: var(--mm-sans) !important;
+    font-weight: 600;
+    font-size: 1.35rem;
+    color: var(--mm-ink);
+}
+
+/* --- Labels --- */
+label,
+.pf-v5-c-form__label,
+.pf-v5-c-form__label-text,
+.pf-c-form__label {
+    font-family: var(--mm-sans) !important;
+    font-weight: 500;
+    color: var(--mm-mute) !important;
+}
+
+/* --- Inputs --- */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+.pf-v5-c-form-control,
+.pf-c-form-control {
+    background: var(--mm-input-bg) !important;
+    border: 1px solid var(--mm-line) !important;
+    border-radius: var(--mm-radius) !important;
+    color: var(--mm-ink) !important;
+    padding: 0.6rem 0.75rem !important;
+    height: auto !important;
+}
+
+input:focus,
+.pf-v5-c-form-control:focus {
+    outline: none !important;
+    border-color: var(--mm-brand) !important;
+    box-shadow: 0 0 0 3px var(--mm-focus) !important;
+}
+
+/* --- Password reveal (PatternFly input-group) — blend the button into the input --- */
+.pf-v5-c-input-group,
+.pf-c-input-group {
+    background: transparent !important;
+    border-radius: var(--mm-radius) !important;
+}
+
+.pf-v5-c-input-group .pf-v5-c-form-control,
+.pf-c-input-group .pf-c-form-control {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+.pf-v5-c-button.pf-m-control,
+.pf-c-button.pf-m-control,
+button[aria-label="Show password"],
+button[aria-label="Hide password"] {
+    background: var(--mm-input-bg) !important;
+    border: 1px solid var(--mm-line) !important;
+    border-left: none !important;
+    border-radius: 0 var(--mm-radius) var(--mm-radius) 0 !important;
+    color: var(--mm-mute) !important;
+    box-shadow: none !important;
+}
+
+.pf-v5-c-button.pf-m-control:hover,
+.pf-c-button.pf-m-control:hover {
+    color: var(--mm-ink) !important;
+}
+
+/* --- Primary button: the app's forest-green "primary" --- */
+input[type="submit"].pf-m-primary,
+.pf-v5-c-button.pf-m-primary,
+.pf-c-button.pf-m-primary,
+#kc-login,
+.btn-primary {
+    background: var(--mm-brand) !important;
+    border: 1px solid var(--mm-brand) !important;
+    border-radius: var(--mm-radius) !important;
+    color: var(--mm-brand-ink) !important;
+    font-family: var(--mm-sans) !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1rem !important;
+    transition: background 0.15s ease;
+}
+
+input[type="submit"].pf-m-primary:hover,
+.pf-v5-c-button.pf-m-primary:hover,
+#kc-login:hover,
+.btn-primary:hover {
+    background: var(--mm-brand-hover) !important;
+    border-color: var(--mm-brand-hover) !important;
+}
+
+/* --- Links --- */
+a,
+.pf-v5-c-button.pf-m-link,
+#kc-info a {
+    color: var(--mm-brand);
+}
+
+a:hover {
+    color: var(--mm-brand-hover);
+}
+
+/* --- Checkbox (remember me) accent --- */
+input[type="checkbox"] {
+    accent-color: var(--mm-brand);
+}
+
+/* --- Banners: spacing, then the app's note colours --- */
+.pf-v5-c-alert,
+.pf-c-alert,
+.alert {
+    margin-bottom: 1.25rem !important;
+}
+
+.pf-v5-c-alert.pf-m-warning,
+.pf-c-alert.pf-m-warning,
+.alert-warning {
+    background: var(--mm-warnbg) !important;
+    color: var(--mm-warn) !important;
+    border-radius: var(--mm-radius) !important;
+}
+
+.pf-v5-c-alert__title,
+.pf-c-alert__title,
+.kc-feedback-text {
+    color: inherit !important;
+}
+
+/* --- Error banner: the app's "bad" note colours --- */
+.pf-v5-c-alert.pf-m-danger,
+.pf-c-alert.pf-m-danger,
+.alert-error {
+    background: var(--mm-badbg) !important;
+    color: var(--mm-bad) !important;
+    border-radius: var(--mm-radius) !important;
+}
+
+/* --- Dark mode (mirrors the app's prefers-color-scheme tokens) --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --mm-bg: #16181a;
+        --mm-card: #1f2326;
+        --mm-ink: #e8eaec;
+        --mm-mute: #9aa3ab;
+        --mm-line: #33393e;
+        --mm-input-bg: #16181a;
+        --mm-brand: #3fa88e;
+        --mm-brand-hover: #56b9a0;
+        --mm-brand-ink: #0b1512;
+        --mm-focus: rgba(63, 168, 142, 0.28);
+        --mm-bad: #ff8f84;
+        --mm-badbg: #3a1f1c;
+        --mm-warn: #f0c36a;
+        --mm-warnbg: #3a2f14;
+    }
+
+    .card-pf {
+        background: var(--mm-card);
+        border-color: var(--mm-line);
+    }
+
+    #kc-page-title,
+    .kcLabelClass span {
+        color: var(--mm-ink) !important;
+    }
+
+    label,
+    .pf-v5-c-form__label,
+    .pf-v5-c-form__label-text {
+        color: var(--mm-mute) !important;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    .pf-v5-c-form-control {
+        background: var(--mm-input-bg) !important;
+        border-color: var(--mm-line) !important;
+        color: var(--mm-ink) !important;
+    }
+}
+
+.pf-c-button:after {
+    border-color: transparent;
+}

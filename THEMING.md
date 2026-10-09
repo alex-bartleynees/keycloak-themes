@@ -102,6 +102,12 @@ These live in the theme's CSS. Keycloak renders default PatternFly markup; you o
   ```css
   #kc-header { display: none; }
   ```
+- **Hide self-registration for admin-provisioned apps** (used by `mailmerge`): the realm may allow registration for other apps, so hide it per theme, plus the footer band that only holds it:
+  ```css
+  #kc-registration-container, #kc-registration { display: none !important; }
+  #kc-info:has(#kc-registration-container) { display: none !important; }
+  ```
+- **Show the product name instead of the realm name** (used by `mailmerge`): keep `#kc-header`, zero its font size and add the name with `#kc-header-wrapper::before { content: "…" }` (reset `text-transform`, Keycloak uppercases it).
 - **Hide the language selector** — the locale dropdown (`#kc-locale`, shown when >1 language is enabled):
   ```css
   #kc-locale { display: none; }
